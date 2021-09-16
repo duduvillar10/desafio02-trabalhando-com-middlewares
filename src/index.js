@@ -26,9 +26,7 @@ function checksExistsUserAccount(request, response, next) {
 function checksCreateTodosUserAvailability(request, response, next) {
   const { user } = request;
 
-  const limitTodo = user.todos.length < 10 ? true : false;
-
-  if (!(user.pro || limitTodo)) return response.status(403).json({ error: "Todo limit reached" });
+  if (!user.pro && !(user.todos.length < 10)) return response.status(403).json({ error: "Todo limit reached" });
 
   next();
 }
